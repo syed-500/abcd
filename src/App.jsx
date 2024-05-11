@@ -10,6 +10,7 @@ const [shown,setShown]=useState(true);
   
 //   console.log(` my name is ${name} and I AM ${count} years old`)
 // },[name,count])
+
 useEffect(()=>{
   const timeout=setTimeout(()=>{
     console.log(`my name is ${name}`)
