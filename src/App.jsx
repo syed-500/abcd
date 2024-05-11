@@ -5,11 +5,12 @@ import './App.css'
 function App() {
   const [count, setCount] = useState(0)
 const[name,setName]=useState("");
-const [shown,setShown]=useState(true);
+const [loading,setLoading]=useState(true);
 // useEffect(()=>{
   
 //   console.log(` my name is ${name} and I AM ${count} years old`)
 // },[name,count])
+const vt=[];
 
 useEffect(()=>{
   const timeout=setTimeout(()=>{
@@ -19,21 +20,25 @@ useEffect(()=>{
     clearTimeout(timeout);
   }
 })
+const [users,setUsers]=useState();
+fetch("https://jsonplaceholder.typicode.com/users")
+.then(res=>res.json())
+.then(data=>{
+  console.log(data);
+  
+})
   return (
     <>
       <div>
+
         <button style={{display:"block",marginBottom:"1rem"}}
         onClick={()=>setShown(s=>!s)}>s/h</button>
         {/* <ClassComponent/> */}
           {}
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
+       
       </div>
-      <h1>Vite + React</h1>
+      
+      <h1>{JSON.stringify(vt)}</h1>
       <div className="card">
         <input type='text' value={name} onChange={e=>setName(e.target.value)}/>
         <button onClick={() => setCount((count) => count + 1)}>
@@ -45,7 +50,7 @@ useEffect(()=>{
         </p>
       </div>
       <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
+        
       </p>
     </>
   )
