@@ -11,22 +11,52 @@ const [loading,setLoading]=useState(true);
 //   console.log(` my name is ${name} and I AM ${count} years old`)
 // },[name,count])
 const vt=[];
+const[items,setItems]=useState([
+  {id:crypto.randomUUID(),name:"Item 1"},
+  {id:crypto.randomUUID(),name:"Item 2"},
+])
+function addItem(){
+  setItems(currentItems=>{
+    return [...currentItems,{id:crypto.randomUUID(),name:"New Item"}]
 
-useEffect(()=>{
-  const timeout=setTimeout(()=>{
-    console.log(`my name is ${name}`)
-  },1000)
-  return()=>{
-    clearTimeout(timeout);
-  }
-})
+  })
+}
+
 const [users,setUsers]=useState();
-fetch("https://jsonplaceholder.typicode.com/users")
-.then(res=>res.json())
-.then(data=>{
-  console.log(data);
+const [error,setError]=useState();
+
+// useEffect(()=>{
+//   setLoading(true);
+//   setError(undefined);
+//   fetch("")
+//   .then(res=>{
+//     if(res.status===200)
+//       {
+//         return res.json();
+//       }
+//       else
+//       return Promise.reject(res);
+//   })
+//   .then(data=>{
+//     setUsers(data);
+    
+//   }).catch(e=>setError(e))
   
-})
+//   .finally(()=>{
+//     setLoading(false);
+  
+//   },[users])
+
+// })
+
+let jsx;
+if(loading)
+{
+  jsx=<h2>Loading...</h2>
+}
+else{
+  jsx=JSON.stringify(users)
+}
   return (
     <>
       <div>
@@ -38,7 +68,7 @@ fetch("https://jsonplaceholder.typicode.com/users")
        
       </div>
       
-      <h1>{JSON.stringify(vt)}</h1>
+      <h1>{jsx}</h1>
       <div className="card">
         <input type='text' value={name} onChange={e=>setName(e.target.value)}/>
         <button onClick={() => setCount((count) => count + 1)}>
@@ -50,7 +80,8 @@ fetch("https://jsonplaceholder.typicode.com/users")
         </p>
       </div>
       <p className="read-the-docs">
-        
+        <button onClick={addItem}>ADD ITEM</button>
+        <pre>{JSON.stringify(items,null,2)}</pre>
       </p>
     </>
   )
